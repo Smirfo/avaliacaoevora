@@ -57,18 +57,21 @@
                 observacoes: document.getElementById("observacoes").value
             };
 
-            fetch("https://script.google.com/macros/s/AKfycbx78PZMZXlIuK-McytedpFbbvb2DvcfiVly5E8ZRfHNSBqy2Xie_GzbOXax_4hxnu5_/exec", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert("Avaliação enviada com sucesso!");
-                document.getElementById("avaliacaoForm").reset();
-            })
-            .catch(error => console.error("Erro ao enviar:", error));
-        });
+            fetch("https://script.google.com/macros/s/AKfycbzN_td5gQiDHP3w_HjIERE5qJUNPXYNmA0FXaoiPcXXcgwvoE2RqnBKoW6SLW0hxj1b/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+})
+.then(() => {
+    alert("Avaliação enviada com sucesso!");
+    document.getElementById("avaliacaoForm").reset();
+})
+.catch(error => {
+    alert("Erro ao enviar: " + error.message);
+    console.error("Erro ao enviar:", error);
+});
+
     </script>
 </body>
 </html>
