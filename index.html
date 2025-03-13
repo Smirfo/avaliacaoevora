@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Avaliação do Atendimento</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; max-width: 600px; margin: auto; }
+        label { font-weight: bold; }
+        .container { display: flex; flex-direction: column; gap: 10px; }
+        button { background-color: #007bff; color: white; padding: 10px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Formulário de Avaliação do Atendimento</h2>
+    <form id="avaliacaoForm">
+        <div class="container">
+            <label for="colaborador">Nome do Colaborador:</label>
+            <input type="text" id="colaborador" required>
+            
+            <label for="checkVendas">Seguiu corretamente o Check de Vendas?</label>
+            <select id="checkVendas">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+            
+            <label for="atencao">Atenção ao Cliente (0 a 10):</label>
+            <input type="number" id="atencao" min="0" max="10" required>
+            
+            <label for="necessidade">Identificação da Necessidade (0 a 10):</label>
+            <input type="number" id="necessidade" min="0" max="10" required>
+            
+            <label for="oferta">Oferta de Soluções e Fecho de Venda (0 a 10):</label>
+            <input type="number" id="oferta" min="0" max="10" required>
+            
+            <label for="despedida">Despedida e Pós-Venda (0 a 10):</label>
+            <input type="number" id="despedida" min="0" max="10" required>
+            
+            <label for="observacoes">Observações:</label>
+            <textarea id="observacoes" rows="4"></textarea>
+            
+            <button type="submit">Enviar Avaliação</button>
+        </div>
+    </form>
+    
+    <script>
+        document.getElementById("avaliacaoForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let formData = {
+                colaborador: document.getElementById("colaborador").value,
+                checkVendas: document.getElementById("checkVendas").value,
+                atencao: document.getElementById("atencao").value,
+                necessidade: document.getElementById("necessidade").value,
+                oferta: document.getElementById("oferta").value,
+                despedida: document.getElementById("despedida").value,
+                observacoes: document.getElementById("observacoes").value
+            };
+
+            fetch("https://script.google.com/macros/s/AKfycbx78PZMZXlIuK-McytedpFbbvb2DvcfiVly5E8ZRfHNSBqy2Xie_GzbOXax_4hxnu5_/exec", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert("Avaliação enviada com sucesso!");
+                document.getElementById("avaliacaoForm").reset();
+            })
+            .catch(error => console.error("Erro ao enviar:", error));
+        });
+    </script>
+</body>
+</html>
